@@ -9,7 +9,7 @@
 ////validation
 ////* insert validation
 //
-//* insert variableMunicipalityCaseNumber({number}) 
+//* insert variableMessageHeaderID({number}) 
 //
 //* insert testCarePlanMunicipalityCaseNumber
 
