@@ -1,10 +1,12 @@
-/*
-PARAM: 
-    number: testflow sequent number 
-    fixture: Path to fixture
-*/
-RuleSet: fixtureCareCommunication(number, fixturePath)
-* fixture[+].id = "fix-bundle-create-{number}"
+
+RuleSet: fixtureNewMessage(fixture, activitycode, number)
+* fixture[+].id = "create-{activitycode}-{number}"
 * fixture[=].autocreate = false
 * fixture[=].autodelete = false
-* fixture[=].resource.reference = "{fixturePath}"
+* fixture[=].resource.reference = "{fixture}"
+
+RuleSet: fixtureUpdateMessage(fixture, activitycode, number)
+* fixture[+].id = "update-{activitycode}-{number}"
+* fixture[=].autocreate = false
+* fixture[=].autodelete = false
+* fixture[=].resource.reference = "{fixture}"
