@@ -48,3 +48,4 @@ InstanceOf: TestScript
 * insert TestSearchMessage(01, new-message)
 * insert TestCancelMessage 
 * insert TestSearchMessageNotFound(01, new-message)
+

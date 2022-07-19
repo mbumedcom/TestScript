@@ -33,3 +33,10 @@ RuleSet: assertGetNameUpdated(activitycode, number)
 * test[=].action[=].assert.expression = "Bundle.entry.resource.ofType(Patient).name.given" 
 * test[=].action[=].assert.warningOnly = false
 * test[=].action[=].assert.sourceId = "update-{activitycode}-{number}"
+
+RuleSet: assertGetIdCreated(activitycode, number)
+* test[=].action[+].assert.description = "Get patient id " 
+* test[=].action[=].assert.direction = #response
+* test[=].action[=].assert.expression = "Bundle.entry.resource.ofType(Patient).id" 
+* test[=].action[=].assert.warningOnly = false
+* test[=].action[=].assert.sourceId = "create-{activitycode}-{number}"
