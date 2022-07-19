@@ -1,15 +1,24 @@
+//Vurder om handlingen er udført korrekt. 200 = okay, 201 = created.
+RuleSet: assertResponseCode
+* test[=].action[+].assert.description = "Confirm that the returned HTTP status is okay or created."
+* test[=].action[=].assert.direction = #response
+* test[=].action[=].assert.responseCode = "200,201"
+* test[=].action[=].assert.operator = #in
+* test[=].action[=].assert.warningOnly = false
+
+RuleSet: assertResponseNotFound
+* test[=].action[+].assert.description = "Confirm that the returned HTTP status is not found."
+* test[=].action[=].assert.direction = #response
+* test[=].action[=].assert.response = #notFound
+* test[=].action[=].assert.operator = #equals
+* test[=].action[=].assert.warningOnly = false
+
 // test asserts. not used atm.
 RuleSet: assertMessageIdInProvenance 
 * test[=].action[+].assert.description = "Confirm that Provenance.target references the correct MessagHeader.id" 
 * test[=].action[=].assert.direction = #request
 * test[=].action[=].assert.expression = "Bundle.entry.resource.ofType(MessageHeader).id = %resource.entry.resource.ofType(Provenance).target.reference.replace('MessageHeader/', '') or Bundle.entry.resource.ofType(MessageHeader).id = %resource.entry.resource.ofType(Provenance).target.reference.replace('urn:uuid:', '')" 
 * test[=].action[=].assert.warningOnly = false
-
-/* RuleSet: assertContentType 
-* test[=].action[+].assert.description = "Confirm that the Bundle included a contentType of either XML or JSON format." 
-* test[=].action[=].assert.direction = #request
-* test[=].action[=].assert.contentType = #fhir+xml
-* test[=].action[=].assert.warningOnly = false */
 
 RuleSet: assertGetNameCreated(activitycode, number)
 * test[=].action[+].assert.description = "Get Patient name" 

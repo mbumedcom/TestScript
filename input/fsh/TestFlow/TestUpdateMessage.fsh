@@ -13,4 +13,5 @@ RuleSet: TestUpdateMessage(number, activitycode, fixture) //TODO change name
 
 //test
 * insert testOperationUpdate({activitycode}, {number})
+* insert assertResponseCode
 * insert assertGetNameUpdated({activitycode}, {number})

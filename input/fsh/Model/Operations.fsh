@@ -28,7 +28,7 @@ RuleSet: setupOperationDelete
 * setup.action[=].operation.description = "System-generated search and delete operations from conditional delete on Bundle MessageHeader).destination.endpoint"
 * setup.action[=].operation.accept = #xml
 * setup.action[=].operation.encodeRequestUrl = true
-* setup.action[=].operation.params = "?message.destination-uri=${destinationUri}" //${C6}"
+* setup.action[=].operation.params = "?message.destination-uri=${destinationUri}"
 
 RuleSet: setupOperationCreate(activitycode, number)
 * setup.action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
@@ -61,8 +61,8 @@ RuleSet: testOperationOKRead
 * test[=].action[=].assert.warningOnly = false
 
 
-RuleSet: testOperationOKCreate(activitycode, number)
-* test[+].id = "testOperationOKCreate"
+RuleSet: testOperationCreate(activitycode, number)
+* test[+].id = "testOperationCreate"
 * test[=].name = "Create a message"
 * test[=].description = "Create message, corresponds to 'POST' from API"
 * test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
@@ -74,13 +74,8 @@ RuleSet: testOperationOKCreate(activitycode, number)
 * test[=].action[=].operation.origin = 1
 * test[=].action[=].operation.responseId = "create-message-{number}"
 * test[=].action[=].operation.sourceId = "create-{activitycode}-{number}" 
-* test[=].action[+].assert.description = "Confirm that the returned HTTP status is 201(OK)."
-* test[=].action[=].assert.direction = #response
-* test[=].action[=].assert.responseCode = "201"
-* test[=].action[=].assert.warningOnly = false
 
-
-RuleSet: testOperationSearch(activitycode, number)
+RuleSet: testOperationSearch
 * test[+].id = "testOperationSearch"
 * test[=].name = "Search a message"
 * test[=].description = "Search message, corresponds to 'GET' from API"
@@ -94,12 +89,22 @@ RuleSet: testOperationSearch(activitycode, number)
 * test[=].action[=].operation.origin = 1
 * test[=].action[=].operation.params = "?identifier=${searchParamIdentifier}"
 * test[=].action[=].operation.responseId = "search-message-ok"
-//* test[=].action[=].operation.sourceId = "create-{activitycode}-{number}" 
-//* test[=].action[=].operation.url = "Bundle.entry.resource.ofType(MessageHeader).destination.endpoint"
-* test[=].action[+].assert.description = "Confirm that the returned HTTP status is 200/201(OK)."
-* test[=].action[=].assert.direction = #response
-* test[=].action[=].assert.responseCode = "200"
-* test[=].action[=].assert.warningOnly = false
+
+RuleSet: testOperationSearchNotFound
+* test[+].id = "testOperationSearchNotFound"
+* test[=].name = "Search a deleted message"
+* test[=].description = "Search message, corresponds to 'GET' from API"
+* test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
+* test[=].action[=].operation.type.code = #search
+* test[=].action[=].operation.resource = #Bundle
+* test[=].action[=].operation.description = "Search a message, corresponds to PUT from API"
+* test[=].action[=].operation.accept = #xml
+* test[=].action[=].operation.destination = 1
+* test[=].action[=].operation.encodeRequestUrl = true
+* test[=].action[=].operation.origin = 1
+* test[=].action[=].operation.params = "?identifier=${searchParamIdentifier}"
+* test[=].action[=].operation.responseId = "search-message-notFound"
+
 RuleSet: testOperationUpdate(activitycode, number)
 * test[+].id = "testOperationUpdate"
 * test[=].name = "Update a message"
@@ -114,10 +119,53 @@ RuleSet: testOperationUpdate(activitycode, number)
 * test[=].action[=].operation.origin = 1
 * test[=].action[=].operation.params = "?identifier=${searchParamIdentifier}"
 * test[=].action[=].operation.responseId = "update-message-ok"
-//* test[=].action[=].operation.targetId = "search-message-ok" 
 * test[=].action[=].operation.sourceId = "update-{activitycode}-{number}"
-//* test[=].action[=].operation.url = "Bundle.entry.resource.ofType(MessageHeader).destination.endpoint"
-* test[=].action[+].assert.description = "Confirm that the returned HTTP status is 201(OK)."
-* test[=].action[=].assert.direction = #response
-* test[=].action[=].assert.responseCode = "201"
-* test[=].action[=].assert.warningOnly = false
+
+RuleSet: testOperationProcessMessage(activitycode, number)
+* test[+].id = "testOperationProcessMessage"
+* test[=].name = "Process message"
+* test[=].description = "Process message, corresponds to 'POST' from API"
+* test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
+* test[=].action[=].operation.type.code = #process-message
+//* test[=].action[=].operation.resource = #Bundle
+* test[=].action[=].operation.accept = #xml
+* test[=].action[=].operation.contentType = #xml
+* test[=].action[=].operation.description = "Process a message to forward."
+* test[=].action[=].operation.destination = 1
+* test[=].action[=].operation.encodeRequestUrl = true
+* test[=].action[=].operation.origin = 1
+* test[=].action[=].operation.params = "/${process-message}"
+* test[=].action[=].operation.requestId = "process-message-{number}"
+* test[=].action[=].operation.sourceId = "process-{activitycode}-{number}" 
+
+RuleSet: testOperationForward(activitycode, number)
+* test[+].id = "testOperationforward"
+* test[=].name = "Forward a message"
+* test[=].description = "Forward message, corresponds to 'PUT' from API"
+* test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
+* test[=].action[=].operation.type.code = #process-message
+* test[=].action[=].operation.resource = #Bundle
+* test[=].action[=].operation.description = "Forward a message, corresponds to 'PUT' from API"
+* test[=].action[=].operation.accept = #xml
+* test[=].action[=].operation.destination = 2
+* test[=].action[=].operation.encodeRequestUrl = true
+* test[=].action[=].operation.origin = 2
+* test[=].action[=].operation.params = "/${process-message}"
+//* test[=].action[=].operation.responseId = "forward-message-ok"
+* test[=].action[=].operation.sourceId = "forward-{activitycode}-{number}"
+
+RuleSet: testOperationCancel
+* test[+].id = "testOperationCancel"
+* test[=].name = "Cancel a message"
+* test[=].description = "Create a message (Post) and then cancel the message (delete)"
+* test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
+* test[=].action[=].operation.type.code = #deleteCondSingle
+* test[=].action[=].operation.resource = #Bundle
+* test[=].action[=].operation.description = "Cancel a message"
+* test[=].action[=].operation.accept = #xml
+* test[=].action[=].operation.destination = 1
+* test[=].action[=].operation.encodeRequestUrl = true
+* test[=].action[=].operation.origin = 1
+* test[=].action[=].operation.params = "?identifier=${searchParamIdentifier}"
+//* test[=].action[=].operation.responseId = "Cancel-message-ok"
+//* test[=].action[=].operation.sourceId = "cancel-{activitycode}-{number}"

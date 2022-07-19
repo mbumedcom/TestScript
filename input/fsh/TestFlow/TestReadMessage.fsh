@@ -20,4 +20,5 @@ RuleSet: TestReadMessage(number, activitycode, fixture) //TODO change name
 
 //Tests
 * insert testOperationOKRead
+* insert assertResponseCode
 

@@ -1,4 +1,4 @@
-RuleSet: TestSearchMessage(number, activitycode) //TODO change name
+RuleSet: TestSearchMessageNotFound(number, activitycode) //TODO change name
 //Server and client
 * insert originClient
 * insert destinationServer
@@ -14,6 +14,6 @@ RuleSet: TestSearchMessage(number, activitycode) //TODO change name
 //setup
 
 //test
-* insert testOperationSearch
-* insert assertResponseCode
+* insert testOperationSearchNotFound
+* insert assertResponseNotFound
 
