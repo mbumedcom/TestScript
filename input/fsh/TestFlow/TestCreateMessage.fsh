@@ -17,3 +17,4 @@ RuleSet: TestCreateMessage(number, activitycode, fixture) //TODO change name
 * insert testOperationCreate({activitycode}, {number})
 * insert assertResponseCode
 * insert assertGetNameCreated({activitycode}, {number})
+* insert assertGetIdCreated({activitycode}, {number})

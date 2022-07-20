@@ -169,22 +169,3 @@ RuleSet: testOperationCancel
 * test[=].action[=].operation.params = "?identifier=${searchParamIdentifier}"
 //* test[=].action[=].operation.responseId = "Cancel-message-ok"
 //* test[=].action[=].operation.sourceId = "cancel-{activitycode}-{number}"
-
-RuleSet: testOperationGetPatientId
-* test[+].id = " testOperationGetPatientId"
-* test[=].name = "Get patient id"
-* test[=].description = "Get patient id"
-* test[=].action[+].operation.type.system = "http://terminology.hl7.org/CodeSystem/testscript-operation-codes"
-* test[=].action[=].operation.type.code = #read
-* test[=].action[=].operation.resource = #Bundle
-* test[=].action[=].operation.description = "Read a created message, corresponds to 'GET' from API"
-* test[=].action[=].operation.accept = #xml
-* test[=].action[=].operation.destination = 1
-* test[=].action[=].operation.encodeRequestUrl = true
-* test[=].action[=].operation.origin = 1
-* test[=].action[=].operation.params = "?message.destination-uri=${destinationUri}"
-* test[=].action[=].operation.responseId = "get-ok"
-* test[=].action[+].assert.description = "Confirm that the returned HTTP status is 200(OK)."
-* test[=].action[=].assert.direction = #response
-* test[=].action[=].assert.responseCode = "200"
-* test[=].action[=].assert.warningOnly = false
