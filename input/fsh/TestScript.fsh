@@ -52,7 +52,7 @@ InstanceOf: TestScript
 Instance: GetID
 InstanceOf: TestScript
 * insert Metadata
-* id = "medcom-create-message" 
+* id = "medcom-get-patient-id" 
 * name = "Get-Patient-id" 
 * title = "Get-Patient-id" 
 * description = "Create/post a message. Corresponds to sending a message" 
