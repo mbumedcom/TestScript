@@ -23,8 +23,8 @@ RuleSet: fixtureForwardMessage(fixture, activitycode, number)
 * fixture[=].autodelete = false
 * fixture[=].resource.reference = "{fixture}"
 
-RuleSet: assertGetIdCreated(fixture, activitycode, number)
-* fixture[+].id = "forward-{activitycode}-{number}"
+RuleSet: fixtureGetIdCreated(fixture, activitycode, number)
+* fixture[+].id = "GetID-{activitycode}-{number}"
 * fixture[=].autocreate = false
 * fixture[=].autodelete = false
 * fixture[=].resource.reference = "{fixture}"

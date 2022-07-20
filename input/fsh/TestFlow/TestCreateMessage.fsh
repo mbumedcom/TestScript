@@ -4,6 +4,8 @@ RuleSet: TestCreateMessage(number, activitycode, fixture) //TODO change name
 * insert destinationServer
 //Fixture
 * insert fixtureNewMessage({fixture}, {activitycode}, {number})
+//added a new fixture
+* insert fixtureGetIdCreated({fixture}, {activitycode}, {number})
 //Profile
 * insert profileCareCommunication
 
