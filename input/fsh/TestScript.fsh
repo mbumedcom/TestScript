@@ -49,3 +49,11 @@ InstanceOf: TestScript
 * insert TestCancelMessage 
 * insert TestSearchMessageNotFound(01, new-message)
 
+Instance: GetID
+InstanceOf: TestScript
+* insert Metadata
+* id = "medcom-create-message" 
+* name = "Get-Patient-id" 
+* title = "Get-Patient-id" 
+* description = "Create/post a message. Corresponds to sending a message" 
+* insert TestCreateMessage(01, new-message, /FHIRSandbox/MedCom/CareCommunicationMBU/fixture_carecomunication.xml) 
